@@ -1,6 +1,6 @@
 blinker==1.9.0
 click==8.3.0
-colorama==0.4.6  # Windows에서 click이 필요로 함
+colorama==0.4.6  # required by click on Windows
 Flask==3.1.2
 itsdangerous==2.2.0
 Jinja2==3.1.6
