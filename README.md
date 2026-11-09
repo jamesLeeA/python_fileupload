@@ -7,7 +7,7 @@
 
 ## 실행
 ```bash
-# Python 3.15 (.python-version), 기존 사이트와 동일한 고정 버전
+# 기존 사이트와 동일한 고정 버전
 pip install -r requirements-dev.txt   # 운영은 requirements.txt
 python app.py        # http://127.0.0.1:5000
 pytest
