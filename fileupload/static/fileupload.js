@@ -11,6 +11,21 @@
   function list(v) { return v ? v.split(',').filter(Boolean) : []; }
   function exts(name) { return name.toLowerCase().split('.').slice(1).filter(Boolean); }
 
+  var DOC_TYPES = {
+    pdf: 'pdf', doc: 'word', docx: 'word', hwp: 'hwp', hwpx: 'hwp',
+    xls: 'excel', xlsx: 'excel', csv: 'excel', ppt: 'ppt', pptx: 'ppt',
+    zip: 'zip', rar: 'zip', '7z': 'zip', txt: 'txt'
+  };
+  // 이미지가 아닌 파일용 문서 모양 아이콘 (확장자 표시)
+  function docIcon(name) {
+    var e = exts(name), ext = e.length ? e[e.length - 1] : '';
+    var el = document.createElement('span');
+    el.className = 'fu-doc fu-doc-' + (DOC_TYPES[ext] || 'etc');
+    el.setAttribute('aria-hidden', 'true');
+    el.textContent = ext.slice(0, 4).toUpperCase();
+    return el;
+  }
+
   function init(root) {
     if (root.__fu) return root.__fu;
     var d = root.dataset;
@@ -55,6 +70,8 @@
           img.src = URL.createObjectURL(f);
           img.onload = function () { URL.revokeObjectURL(img.src); };
           li.appendChild(img);
+        } else {
+          li.appendChild(docIcon(f.name));
         }
         var name = document.createElement('span');
         name.className = 'fu-item-name flex-grow-1';
