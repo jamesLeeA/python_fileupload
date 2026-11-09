@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h3 mb-4">파일 업로드 데모</h1>
+
+<form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+  <div class="form-group">
+    <label>제목</label>
+    <input class="form-control" name="title">
+  </div>
+
+  <div class="form-group">
+    <label>1) 여러 파일 (최대 5개, 파일당 5MB, 전체 15MB, 이미지/PDF만)</label>
+    {{ file_upload('docs', rules_multi) }}
+  </div>
+
+  <div class="form-group">
+    <label>2) 단일 파일 (필수, 실행파일 금지)</label>
+    {{ file_upload('single', rules_single, label='파일 1개를 끌어놓거나 클릭') }}
+  </div>
+
+  <button class="btn btn-primary">제출</button>
+  <button type="reset" class="btn btn-outline-secondary">초기화</button>
+</form>
+
+{% if saved %}
+<h2 class="h5 mt-4">저장 결과</h2>
+<pre class="border p-2">{{ saved|tojson(indent=2) }}</pre>
+{% endif %}
+{% endblock %}
