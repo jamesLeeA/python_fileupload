@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}파일 업로드{% endblock %}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  {{ file_upload_assets() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='fileupload.css') }}">
+  <script src="{{ url_for('static', filename='fileupload.js') }}" defer></script>
 </head>
 <body>
   <div class="container py-4">

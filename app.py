@@ -2,9 +2,7 @@ import os
 
 from flask import Flask, flash, redirect, render_template, request, url_for
 
-import fileupload
-from fileupload import UploadError, UploadRules, save_files
-from fileupload.core import MB
+from fileupload import MB, UploadError, UploadRules, save_files
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
@@ -29,7 +27,6 @@ def create_app() -> Flask:
     app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-only-change-me")
     # 요청 전체 상한 (규칙 합계보다 넉넉하게)
     app.config["MAX_CONTENT_LENGTH"] = 100 * MB
-    fileupload.init_app(app)
 
     @app.get("/")
     def index():

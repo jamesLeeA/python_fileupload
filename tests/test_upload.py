@@ -6,7 +6,7 @@ import pytest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 import app as appmod  # noqa: E402
-from fileupload.core import MB  # noqa: E402
+from fileupload import MB  # noqa: E402
 
 
 @pytest.fixture
