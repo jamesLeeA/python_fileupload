@@ -1,9 +1,9 @@
-{% extends "base.html" %}
-{% from "_fileupload.html" import file_upload %}
+{% extends "common/base.html" %}
+{% from "common/_fileupload.html" import file_upload %}
 {% block content %}
 <h1 class="h3 mb-4">파일 업로드 데모</h1>
 
-<form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+<form method="post" action="{{ url_for('upload.upload') }}" enctype="multipart/form-data">
   <div class="form-group">
     <label>제목</label>
     <input class="form-control" name="title">

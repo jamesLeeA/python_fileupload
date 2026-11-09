@@ -3,30 +3,42 @@
 여러 파일/단일 파일, 최대 파일 수, 파일당·전체 용량, 허용·금지 확장자, 탐색기 드래그 앤 드롭.
 파일은 일반 폼 submit 시 함께 전송됩니다. 최종 검증은 항상 서버에서 합니다.
 
-## 파일 구성
-| 파일 | 역할 |
-|---|---|
-| `fileupload.py` | 규칙(`UploadRules`), 검증, 저장 (서버) |
-| `templates/_fileupload.html` | 화면 조각 (`file_upload` 매크로) |
-| `static/fileupload.js`, `static/fileupload.css` | 브라우저 동작/모양 |
-| `app.py`, `templates/base.html`, `templates/index.html` | 사용 예시(데모) |
+## 파일 구성 (프로젝트: AI_DAEJOO)
+```
+AI_DAEJOO/
+├─ run.py                                   실행 진입점
+├─ app/
+│  ├─ __init__.py                           create_app()
+│  ├─ routers/
+│  │  ├─ fileupload.py                      규칙(UploadRules)·검증·저장 (공통 모듈)
+│  │  └─ upload.py                          데모 라우트(Blueprint)
+│  ├─ templates/common/
+│  │  ├─ _fileupload.html                   file_upload 매크로 (공통 화면 조각)
+│  │  ├─ base.html, index.html              데모 레이아웃/페이지
+│  └─ static/assets/
+│     ├─ js/mcit/fileupload.js
+│     └─ css/mcit/fileupload.css
+├─ tests/test_upload.py
+└─ uploads/                                 저장 폴더
+```
 
 ## 실행
 ```bash
+cd AI_DAEJOO
 pip install -r requirements-dev.txt   # 운영은 requirements.txt
-python app.py        # http://127.0.0.1:5000
+python run.py        # http://127.0.0.1:5000
 python -m pytest
 ```
 
 ## 다른 페이지에 붙이기
 1. 레이아웃 `<head>`에 (한 번)
    ```html
-   <link rel="stylesheet" href="{{ url_for('static', filename='fileupload.css') }}">
-   <script src="{{ url_for('static', filename='fileupload.js') }}" defer></script>
+   <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/mcit/fileupload.css') }}">
+   <script src="{{ url_for('static', filename='assets/js/mcit/fileupload.js') }}" defer></script>
    ```
 2. 페이지 템플릿 (`<form enctype="multipart/form-data">` 안)
    ```jinja
-   {% from "_fileupload.html" import file_upload %}
+   {% from "common/_fileupload.html" import file_upload %}
    {{ file_upload('attachments', rules) }}
    ```
 3. 서버

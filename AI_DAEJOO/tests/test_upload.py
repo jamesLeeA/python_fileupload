@@ -5,15 +5,15 @@ import sys
 import pytest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-import app as appmod  # noqa: E402
-from fileupload import MB  # noqa: E402
+from app import create_app  # noqa: E402
+from app.routers.fileupload import MB  # noqa: E402
 
 
 @pytest.fixture
-def client(tmp_path, monkeypatch):
-    monkeypatch.setattr(appmod, "UPLOAD_DIR", str(tmp_path))
-    a = appmod.create_app()
+def client(tmp_path):
+    a = create_app()
     a.config["TESTING"] = True
+    a.config["UPLOAD_DIR"] = str(tmp_path)
     return a.test_client(), tmp_path
 
 
