@@ -1,0 +1,9 @@
+/* 첨부 컴포넌트: Bootstrap 4 클래스를 최대한 쓰고 자체 스타일은 최소화 */
+.attach-drop{cursor:pointer;border-style:dashed!important;border-width:2px!important;background:#f8f9fa}
+.attach-drop:hover,.attach-drop:focus{background:#eef3f8;outline:0}
+.attach-dragover .attach-drop{background:#e2efff;border-color:#007bff!important}
+.attach-thumb{width:40px;height:40px;object-fit:cover;border-radius:.25rem;margin-right:1rem}
+.attach-badge{display:inline-block;min-width:40px;padding:.55rem .25rem;border-radius:.25rem;
+  background:#6c757d;color:#fff;font-size:.7rem;font-weight:700;line-height:1;text-align:center;text-transform:uppercase}
+.attach-name{word-break:break-all}
+.attach-deleted .attach-name{text-decoration:line-through;opacity:.5}

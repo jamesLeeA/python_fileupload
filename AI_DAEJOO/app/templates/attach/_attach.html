@@ -1,0 +1,33 @@
+{# 사용: {% from "attach/_attach.html" import attach_field %}  {{ attach_field(attach) }}
+   attach = attach_view(...) 반환값. None(첨부 미사용)이면 아무것도 그리지 않는다.
+   <form> 은 만들지 않는다. 호출하는 페이지의 <form enctype="multipart/form-data"> 안에 넣는다. #}
+{% macro attach_field(attach) -%}
+{%- if attach -%}
+{%- set cfg = attach.cfg -%}
+<div class="attach" data-attach data-ui="{{ cfg.ui }}"{% for k, v in cfg.attrs().items() %} data-{{ k }}="{{ v }}"{% endfor %}>
+  {%- if cfg.ui == 'drop' %}
+  <div class="attach-drop border rounded text-center p-4" tabindex="0" role="button">
+    <div>파일을 여기로 드래그하거나 클릭하여 선택하세요</div>
+    <small class="text-muted d-block mt-1">{{ cfg.hint() }}</small>
+  </div>
+  {%- else %}
+  <button type="button" class="btn btn-outline-secondary btn-sm attach-btn">파일 첨부</button>
+  <small class="text-muted ml-2">{{ cfg.hint() }}</small>
+  {%- endif %}
+  <input type="file" class="attach-input d-none" name="{{ cfg.field }}" multiple
+         {%- if cfg.allow %} accept="{{ cfg.accept() }}"{% endif %}>
+  <div class="attach-errors alert alert-danger mt-2 d-none" role="alert"></div>
+  <ul class="attach-list list-group mt-2">
+    {%- for f in attach.files %}
+    <li class="list-group-item d-flex align-items-center py-2 attach-item" data-id="{{ f.id }}" data-size="{{ f.size }}">
+      <span class="attach-badge mr-3">{{ f.ext[:4] }}</span>
+      {% if f.url %}<a class="attach-name flex-grow-1" href="{{ f.url }}">{{ f.original_name }}</a>
+      {%- else %}<span class="attach-name flex-grow-1">{{ f.original_name }}</span>{% endif %}
+      <small class="text-muted mx-3">{{ f.size_text }}</small>
+      <button type="button" class="btn btn-sm btn-outline-danger attach-del">삭제</button>
+    </li>
+    {%- endfor %}
+  </ul>
+</div>
+{%- endif -%}
+{%- endmacro %}
