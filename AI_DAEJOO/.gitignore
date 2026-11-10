@@ -1,6 +1,0 @@
-__pycache__/
-*.pyc
-.venv/
-uploads/*
-!uploads/.gitkeep
-.pytest_cache/
