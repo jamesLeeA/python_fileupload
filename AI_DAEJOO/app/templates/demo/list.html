@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h4 mb-3">첨부 모듈 데모</h1>
+<a class="btn btn-primary btn-sm mb-3" href="{{ url_for('attach_demo.new') }}">새 글</a>
+<table class="table table-sm">
+  <thead><tr><th>제목</th><th>첨부</th><th></th></tr></thead>
+  <tbody>
+  {% for p in posts %}
+    <tr>
+      <td>{{ p.title }}</td>
+      <td>{% for f in p.files %}<a class="d-block" href="{{ f.url }}">{{ f.original_name }} ({{ f.size_text }})</a>{% endfor %}</td>
+      <td class="text-right">
+        <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('attach_demo.edit', pid=p.id) }}">수정</a>
+        <form class="d-inline" method="post" action="{{ url_for('attach_demo.delete', pid=p.id) }}"
+              onsubmit="return confirm('삭제할까요?')">
+          <button class="btn btn-outline-danger btn-sm">삭제</button>
+        </form>
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="3" class="text-muted">글이 없습니다.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
